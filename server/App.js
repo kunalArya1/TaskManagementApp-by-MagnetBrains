@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/Connect.db.js";
 import userRoutes from "./routes/user.routes.js";
+import taskRoutes from "./routes/task.routes.js";
 import cookieParser from "cookie-parser";
 
 // Express App
@@ -24,6 +25,9 @@ app.use(cookieParser());
 
 // user Routes
 app.use("/api/v1/user", userRoutes);
+
+// Task Routes
+app.use("/api/v1/user", taskRoutes);
 
 // App Listen
 const start = async () => {

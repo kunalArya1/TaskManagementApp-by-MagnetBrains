@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minlength: [5, "Password must be at least 5 characters long"],
   },
+  tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 });
 
 userSchema.pre("save", async function (next) {
