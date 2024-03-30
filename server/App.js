@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
-import connectDB from "./db/Connect.db";
+import connectDB from "./db/Connect.db.js";
+import userRoutes from "./routes/user.routes.js";
 
 // Express App
 const app = express();
@@ -17,6 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Cookie Parser
 app.use(cookieParser());
+
+// Routes
+
+// user Routes
+app.use("/api/v1/user", userRoutes);
 
 // App Listen
 const start = async () => {
