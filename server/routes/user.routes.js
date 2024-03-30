@@ -4,7 +4,8 @@ import {
   signup,
   signin,
   signout,
-} from "../controllers/user.controllers";
+} from "../controllers/user.controllers.js";
+import { isLoggoedIn } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -17,6 +18,6 @@ router.route("/signup").post(signup);
 router.route("/signin").post(signin);
 
 // signOut Route
-router.route("/signout").get(signout);
+router.route("/signout").get(isLoggoedIn, signout);
 
 export default router;

@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/Connect.db.js";
 import userRoutes from "./routes/user.routes.js";
+import cookieParser from "cookie-parser";
 
 // Express App
 const app = express();
@@ -35,3 +36,5 @@ const start = async () => {
     console.log("Error while Connecting to database ", error);
   }
 };
+
+start();

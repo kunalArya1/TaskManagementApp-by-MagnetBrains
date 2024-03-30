@@ -32,9 +32,7 @@ export const signup = catchAsyncError(async (req, res, next) => {
     password,
   });
   // Getting registred user without password
-  const registredStudent = await Student.findById(createdStudent._id).select(
-    "-password"
-  );
+  const registredStudent = await User.findById(newUser._id).select("-password");
 
   // check if user is created or not
   if (!registredStudent) {
@@ -45,7 +43,7 @@ export const signup = catchAsyncError(async (req, res, next) => {
   res
     .status(200)
     .json(
-      new ApiResponse(200, registredStudent, "Student Signed Up Successfully")
+      new ApiResponse(200, registredStudent, "User Signed Up Successfully")
     );
 });
 
@@ -60,15 +58,15 @@ export const signin = catchAsyncError(async (req, res, next) => {
   }
 
   // check if student with this email is registred or not
-  const student = await Student.findOne({ email });
+  const user = await User.findOne({ email });
 
   // if student is not registred then send error response
-  if (!student) {
-    throw new ApiError(401, "Student with this email is not registred");
+  if (!user) {
+    throw new ApiError(401, "User with this email is not registred");
   }
 
   // check if password is correct or not
-  const isPasswordMatching = await student.isPassportCorrect(password);
+  const isPasswordMatching = await user.isPassportCorrect(password);
 
   // if password is not correct then send error response
   if (!isPasswordMatching) {
@@ -76,7 +74,7 @@ export const signin = catchAsyncError(async (req, res, next) => {
   }
 
   // if password is correct then generate access token
-  const accesstoken = await student.generateAccessToken();
+  const accesstoken = await user.generateAccessToken();
 
   // For secure cookie
   const options = {
@@ -88,12 +86,17 @@ export const signin = catchAsyncError(async (req, res, next) => {
   res
     .status(200)
     .cookie("accessToken", accesstoken, options)
-    .json(new ApiResponse(200, accesstoken, "Sign in SuccessFull"));
+    .json(new ApiResponse(200, accesstoken, " User Signin SuccessFull"));
 });
 
 // SignOut Controller
 export const signout = catchAsyncError(async (req, res, next) => {
+  // Clearing Cookie
   res.clearCookie("accessToken");
+
+  // Geeting loggedin user from request
   const user = req.user;
+
+  //   Sending Response
   res.json(new ApiResponse(200, user, "SignOut Success"));
 });
