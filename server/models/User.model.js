@@ -44,3 +44,5 @@ userSchema.methods.generateAccessToken = function () {
     }
   );
 };
+
+export default mongoose.model("user", userSchema);
