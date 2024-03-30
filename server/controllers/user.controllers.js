@@ -4,8 +4,12 @@ import { ApiError } from "../utils/ApiError.js";
 import User from "../models/User.model.js";
 
 // Home Page Controller ( Just for Testing )
-export const homePage = catchAsyncError(async (req, res, next) => {
-  res.status(200).json(new ApiResponse(200, "Welcome to Home Page"));
+export const user = catchAsyncError(async (req, res, next) => {
+  const userId = req.user.id;
+
+  const user = await User.findById(userId).select("-password");
+
+  res.status(200).json(new ApiResponse(200, user, "Welcome to Home Page"));
 });
 
 // Signup Controller

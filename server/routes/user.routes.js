@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  homePage,
+  user,
   signup,
   signin,
   signout,
@@ -9,7 +9,7 @@ import { isLoggoedIn } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.route("/").get(homePage);
+router.route("/").get(isLoggoedIn, user);
 
 // signUp Route
 router.route("/signup").post(signup);
