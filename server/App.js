@@ -4,6 +4,7 @@ import connectDB from "./db/Connect.db.js";
 import userRoutes from "./routes/user.routes.js";
 import taskRoutes from "./routes/task.routes.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 // Express App
 const app = express();
@@ -13,6 +14,9 @@ const PORT = process.env.PORT || 3000;
 
 // DotEnv Config
 dotenv.config();
+
+// Cors
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 // Body Parser
 app.use(express.json());

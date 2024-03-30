@@ -90,7 +90,7 @@ export const signin = catchAsyncError(async (req, res, next) => {
   res
     .status(200)
     .cookie("accessToken", accesstoken, options)
-    .json(new ApiResponse(200, accesstoken, " User Signin SuccessFull"));
+    .json(new ApiResponse(200, user.name, " User Signin SuccessFull"));
 });
 
 // SignOut Controller

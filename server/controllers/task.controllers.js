@@ -6,7 +6,7 @@ import { ApiError } from "../utils/ApiError.js";
 // create Task
 export const crateTaks = catchAsyncError(async (req, res, next) => {
   // get the title, description and dueDate from the request body
-  const { title, description, dueDate } = req.body;
+  const { title, description, dueDate, status } = req.body;
 
   // get the user id from the request object that is set by the jwt middleware
   const createdBy = req.user.id;
@@ -21,6 +21,7 @@ export const crateTaks = catchAsyncError(async (req, res, next) => {
     description,
     dueDate,
     createdBy,
+    status,
   });
 
   // save the task to the database
@@ -57,6 +58,7 @@ export const getAllTask = catchAsyncError(async (req, res, next) => {
 export const getTaskById = catchAsyncError(async (req, res, next) => {
   // get the task id from the url params
   const { id } = req.params;
+  console.log(id);
 
   // find the task in the database by id
   const task = await Task.findOne({ _id: id });
